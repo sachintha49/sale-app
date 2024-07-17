@@ -1,33 +1,21 @@
 package com.pos.point_of_sale.entity;
 
-import com.vladmihalcea.hibernate.type.json.JsonStringType;
-import com.vladmihalcea.hibernate.type.json.JsonType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import java.util.ArrayList;
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 @Entity
 @Table(name = "customer")
 public class Customer {
-    public Customer(){
-
-    }
-
-    public Customer(int customerId, String customerName, String customerAddress, String contactNumber, String nic, boolean isActive) {
-        this.customerId = customerId;
-        this.customerName = customerName;
-        this.customerAddress = customerAddress;
-        this.contactNumber = contactNumber;
-        this.nic = nic;
-        this.isActive = isActive;
-    }
-
     @Id
     @Column(name = "customer_id", length = 45)
     private int customerId;
