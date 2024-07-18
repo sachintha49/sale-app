@@ -15,6 +15,8 @@ public class CustomerDto {
 
     private String customerAddress;
 
+    private double customerSalary;
+
     private String contactNumber;
 
     private String nic;
