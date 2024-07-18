@@ -1,6 +1,7 @@
 package com.pos.point_of_sale.controller;
 
 import com.pos.point_of_sale.dto.CustomerDto;
+import com.pos.point_of_sale.dto.request.CustomerUpdateDto;
 import com.pos.point_of_sale.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,5 +26,21 @@ public class CustomerController {
         /*ekata RestController eke athule inne ResponseBody eka wede karala denawa java eka json ekakta convert karanawa. nikan controller eka vitharak dammoth front end ekat yanne ne*/
         customerService.saveCustomer(customerDto);
         return customerDto.getCustomerName();
+    }
+
+    @PutMapping("/update")
+    public String updateCustomer(@RequestBody CustomerUpdateDto customerUpdateDto){
+        customerService.updateCustomer(customerUpdateDto);
+        return "updated";
+    }
+
+    /*me path ekata call karaddi params ewanna one idk iyala front end eken. key eka id eka and value eka
+    * eka alladdith eka a namama htiyenna one nehtham eka allanen ne.
+    *
+    * neththam @RequestParam eka use karala a value eka allala aluth value ekata assign karanna puluwn*/
+    @GetMapping(path = "/get-by-id", params = "id")
+    public CustomerDto getCustomerById(@RequestParam(value = "id") int customerId){
+    CustomerDto customerDto = customerService.getCustomerById(customerId);
+        return customerDto;
     }
 }

@@ -29,6 +29,9 @@ public class Customer {
     @Column(name = "contact_number")
     private String contactNumber;
 
+    @Column(name = "salary")
+    private double customerSalary;
+
     @Column(name = "nic")
     private String nic;
 
