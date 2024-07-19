@@ -39,7 +39,7 @@ public class Customer {
     @Schema(description = "Unique Identified of the Customer", example = "1889837383v")
     private String nic;
 
-    @Column(name = "state", columnDefinition = "TINYINT default 0")
+    @Column(name = "active_state", columnDefinition = "TINYINT default 0")
     @Schema(description = "Customer availablitiy", example = "true")
-    private boolean isActive = true;
+    private boolean isActive;
 }

@@ -66,5 +66,21 @@ public class CustomerController {
         return allCustomers;
     }
 
+    @DeleteMapping(
+            path = "delete-customer/{id}"
+    )
+    public String deleteCustomer(@PathVariable(value = "id") int customerId){
+        String deleted = customerService.deleteCustomer(customerId);
+                return deleted;
+    }
 
+    @GetMapping(
+            path = "/get-all-customers-by-active-state/{status}"
+    )
+    @Operation(summary = "Get all active customers", description = "Return list of customers with active state")
+    @ApiResponse(responseCode = "200", description = "Customer found!")
+    public List<CustomerDto> getAllCustomersByActiveState(@PathVariable(value = "status") boolean activeState){
+        List<CustomerDto> allActiveCustomers = customerService.getAllCustomersByActiveState(activeState);
+        return allActiveCustomers;
+    }
 }

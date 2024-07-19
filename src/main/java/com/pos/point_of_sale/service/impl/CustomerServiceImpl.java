@@ -81,4 +81,34 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return customerList;
     }
+
+    @Override
+    public String deleteCustomer(int customerId) {
+        if (customerRepo.existsById(customerId)){
+            customerRepo.deleteById(customerId);
+            return "Deleted successfully "+customerId;
+        }else{
+            throw new RuntimeException("No customer found in this id");
+        }
+    }
+
+    @Override
+    public List<CustomerDto> getAllCustomersByActiveState(boolean activeState) {
+        List<Customer> customers = customerRepo.findByIsActive(activeState);
+        List<CustomerDto> customerList = new ArrayList<>();
+
+        for (Customer customer : customers){
+            CustomerDto customerDto = new CustomerDto(
+                    customer.getCustomerId(),
+                    customer.getCustomerName(),
+                    customer.getCustomerAddress(),
+                    customer.getCustomerSalary(),
+                    customer.getContactNumber(),
+                    customer.getNic(),
+                    customer.isActive()
+            );
+            customerList.add(customerDto);
+        }
+        return customerList;
+    }
 }

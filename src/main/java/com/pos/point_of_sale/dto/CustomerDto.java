@@ -21,5 +21,5 @@ public class CustomerDto {
 
     private String nic;
 
-    private boolean isActive = true;
+    private boolean isActive;
 }
