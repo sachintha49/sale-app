@@ -18,17 +18,15 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String saveCustomer(CustomerDto customerDto) {
-        Customer customer = new Customer(
-                customerDto.getCustomerId(),
-                customerDto.getCustomerName(),
-                customerDto.getCustomerAddress(),
-                customerDto.getContactNumber(),
-                customerDto.getCustomerSalary(),
-                customerDto.getCustomerAddress(),
-                customerDto.isActive()
-        );
+        Customer customer = Customer.builder()
+                .customerName(customerDto.getCustomerName())
+                .customerAddress(customerDto.getCustomerAddress())
+                .contactNumber(customerDto.getContactNumber())
+                .customerSalary(customerDto.getCustomerSalary())
+                .isActive(customerDto.isActive())
+                .build();
         customerRepo.save(customer);
-        return "";
+        return customerDto.getCustomerName() + " has been Saved!";
     }
 
     @Override

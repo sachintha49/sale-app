@@ -56,6 +56,12 @@
 			<optional>true</optional>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
 <!--		&lt;!&ndash;meka 3rd party ekak nisa configuratoni ekak liyanna one spring bean ekak khomada object ekak hdanna one kiyala&ndash;&gt;-->
 <!--		<dependency>-->
 <!--			<groupId>io.springfox</groupId>-->
