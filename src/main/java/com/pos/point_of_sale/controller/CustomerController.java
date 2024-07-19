@@ -6,6 +6,8 @@ import com.pos.point_of_sale.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /*meya rest controller ekak kiyala define karanne menna me annotation eken
 * meka hedila thiyenne @Controller + @ResonseBody kiyana annotation deka ekathu wela*/
 @RestController
@@ -42,5 +44,13 @@ public class CustomerController {
     public CustomerDto getCustomerById(@RequestParam(value = "id") int customerId){
     CustomerDto customerDto = customerService.getCustomerById(customerId);
         return customerDto;
+    }
+
+    @GetMapping(
+            path = "/get-all-customers"
+    )
+    public List<CustomerDto> getAllCustomers(){
+        List<CustomerDto> allCustomers = customerService.getAllCustomers();
+        return allCustomers;
     }
 }

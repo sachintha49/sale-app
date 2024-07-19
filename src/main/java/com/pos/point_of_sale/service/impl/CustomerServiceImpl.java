@@ -8,6 +8,9 @@ import com.pos.point_of_sale.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
@@ -59,5 +62,25 @@ public class CustomerServiceImpl implements CustomerService {
         }else{
             throw new RuntimeException("no data found");
         }
+    }
+
+    @Override
+    public List<CustomerDto> getAllCustomers() {
+        List<Customer> customers = customerRepo.findAll();
+        List<CustomerDto> customerList = new ArrayList<>();
+
+        for (Customer customer : customers){
+            CustomerDto customerDto = new CustomerDto(
+                    customer.getCustomerId(),
+                    customer.getCustomerName(),
+                    customer.getCustomerAddress(),
+                    customer.getCustomerSalary(),
+                    customer.getContactNumber(),
+                    customer.getNic(),
+                    customer.isActive()
+            );
+            customerList.add(customerDto);
+        }
+        return customerList;
     }
 }

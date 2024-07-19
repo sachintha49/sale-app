@@ -1,9 +1,6 @@
 package com.pos.point_of_sale.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +15,7 @@ import lombok.ToString;
 public class Customer {
     @Id
     @Column(name = "customer_id", length = 45)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int customerId;
 
     @Column(name = "customer_name", nullable = false)
