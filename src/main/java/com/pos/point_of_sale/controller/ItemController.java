@@ -3,7 +3,10 @@ package com.pos.point_of_sale.controller;
 import com.pos.point_of_sale.dto.request.ItemSaveRequestDto;
 import com.pos.point_of_sale.dto.response.ItemGetResponseDto;
 import com.pos.point_of_sale.service.ItemService;
+import com.pos.point_of_sale.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,20 +19,33 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @PostMapping(
+//    @PostMapping(
+//            path = {"/save"}
+//    )
+//    public String saveItem(@RequestBody ItemSaveRequestDto itemSaveRequestDto){
+//        String message = itemService.saveItem(itemSaveRequestDto);
+//        return message;
+//    }
 
+    @PostMapping(
             path = {"/save"}
     )
-    public String saveItem(@RequestBody ItemSaveRequestDto itemSaveRequestDto){
+    public ResponseEntity<StandardResponse> saveItem(@RequestBody ItemSaveRequestDto itemSaveRequestDto) {
         String message = itemService.saveItem(itemSaveRequestDto);
-        return message;
+
+//        ResponseEntity<StandardResponse> response = new ResponseEntity<StandardResponse>(
+//                new StandardResponse(201, "Success!", message), HttpStatus.CREATED
+//        );
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(201, "Success!", message), HttpStatus.CREATED
+        );
     }
 
     @GetMapping(
             path = "/get-by-name",
             params = "name"
     )
-    public List<ItemGetResponseDto> getItemByNameAndStatus(@RequestParam(value = "name") String itemName){
+    public List<ItemGetResponseDto> getItemByNameAndStatus(@RequestParam(value = "name") String itemName) {
         List<ItemGetResponseDto> itemDtos = itemService.getItemByNameAndStatus(itemName);
         return itemDtos;
     }
@@ -38,7 +54,7 @@ public class ItemController {
             path = "/get-by-name-with-mapstruct",
             params = "name"
     )
-    public List<ItemGetResponseDto> getItemByNameAndStatusByMapStruct(@RequestParam(value = "name") String itemName){
+    public List<ItemGetResponseDto> getItemByNameAndStatusByMapStruct(@RequestParam(value = "name") String itemName) {
         List<ItemGetResponseDto> itemDtos = itemService.getItemByNameAndStatusByMatStruct(itemName);
         return itemDtos;
     }

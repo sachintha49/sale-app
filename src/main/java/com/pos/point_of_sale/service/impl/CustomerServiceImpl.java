@@ -3,6 +3,7 @@ package com.pos.point_of_sale.service.impl;
 import com.pos.point_of_sale.dto.CustomerDto;
 import com.pos.point_of_sale.dto.request.CustomerUpdateDto;
 import com.pos.point_of_sale.entity.Customer;
+import com.pos.point_of_sale.exception.NotFoundException;
 import com.pos.point_of_sale.repository.CustomerRepo;
 import com.pos.point_of_sale.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,21 +66,25 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<CustomerDto> getAllCustomers() {
         List<Customer> customers = customerRepo.findAll();
-        List<CustomerDto> customerList = new ArrayList<>();
-
-        for (Customer customer : customers){
-            CustomerDto customerDto = new CustomerDto(
-                    customer.getCustomerId(),
-                    customer.getCustomerName(),
-                    customer.getCustomerAddress(),
-                    customer.getCustomerSalary(),
-                    customer.getContactNumber(),
-                    customer.getNic(),
-                    customer.isActive()
-            );
-            customerList.add(customerDto);
+        if (!customers.isEmpty()){
+            List<CustomerDto> customerList = new ArrayList<>();
+            for (Customer customer : customers){
+                CustomerDto customerDto = new CustomerDto(
+                        customer.getCustomerId(),
+                        customer.getCustomerName(),
+                        customer.getCustomerAddress(),
+                        customer.getCustomerSalary(),
+                        customer.getContactNumber(),
+                        customer.getNic(),
+                        customer.isActive()
+                );
+                customerList.add(customerDto);
+            }
+            return customerList;
+        }else{
+            throw new NotFoundException("No Customer Found!");
         }
-        return customerList;
+
     }
 
     @Override

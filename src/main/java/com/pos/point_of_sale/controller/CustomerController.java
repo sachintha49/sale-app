@@ -3,10 +3,13 @@ package com.pos.point_of_sale.controller;
 import com.pos.point_of_sale.dto.CustomerDto;
 import com.pos.point_of_sale.dto.request.CustomerUpdateDto;
 import com.pos.point_of_sale.service.CustomerService;
+import com.pos.point_of_sale.util.StandardResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,14 +59,26 @@ public class CustomerController {
         return customerDto;
     }
 
+//    @GetMapping(
+//            path = "/get-all-customers"
+//    )
+//    @Operation(summary = "Get all customers", description = "Return list of customers")
+//    @ApiResponse(responseCode = "200", description = "Customer found!")
+//    public List<CustomerDto> getAllCustomers(){
+//        List<CustomerDto> allCustomers = customerService.getAllCustomers();
+//        return allCustomers;
+//    }
+
     @GetMapping(
             path = "/get-all-customers"
     )
     @Operation(summary = "Get all customers", description = "Return list of customers")
     @ApiResponse(responseCode = "200", description = "Customer found!")
-    public List<CustomerDto> getAllCustomers(){
+    public ResponseEntity<StandardResponse> getAllCustomers(){
         List<CustomerDto> allCustomers = customerService.getAllCustomers();
-        return allCustomers;
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success!", allCustomers), HttpStatus.CREATED
+        );
     }
 
     @DeleteMapping(
