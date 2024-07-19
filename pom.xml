@@ -28,6 +28,8 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<!--MapStruct eka weda kale neththam menna me propoerty eka danna one pom ekata version ekath ekka. eath weda kal e neththam source ekai target ekai dekama dannaone. <maven.compiler.target> and soruce-->
+		<!--<org.mapstruct.version>1.4.1.Final</org.mapstruct.version>-->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -62,7 +64,30 @@
 			<version>2.5.0</version>
 		</dependency>
 
-<!--		&lt;!&ndash;meka 3rd party ekak nisa configuratoni ekak liyanna one spring bean ekak khomada object ekak hdanna one kiyala&ndash;&gt;-->
+		<!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>1.4.2.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>1.4.2.Final</version>
+		</dependency>
+
+
+
+		<!--		&lt;!&ndash;meka 3rd party ekak nisa configuratoni ekak liyanna one spring bean ekak khomada object ekak hdanna one kiyala&ndash;&gt;-->
 <!--		<dependency>-->
 <!--			<groupId>io.springfox</groupId>-->
 <!--			<artifactId>springfox-swagger2</artifactId>-->
