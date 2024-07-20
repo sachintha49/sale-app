@@ -58,4 +58,15 @@ public class ItemController {
         List<ItemGetResponseDto> itemDtos = itemService.getItemByNameAndStatusByMatStruct(itemName);
         return itemDtos;
     }
+
+    @GetMapping(
+            path = "/get-all-item-by-status",
+            params = "activeStatus"
+    )
+    public ResponseEntity<StandardResponse> getItemsByActiveStatus(@RequestParam(value = "activeStatus") boolean activeStatus) {
+        List<ItemGetResponseDto> itemDtos = itemService.getItemsByActiveStatus(activeStatus);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(201, "Success!", itemDtos), HttpStatus.OK
+        );
+    }
 }

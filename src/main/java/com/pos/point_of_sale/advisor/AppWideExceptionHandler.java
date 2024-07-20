@@ -13,7 +13,7 @@ public class AppWideExceptionHandler {
     public ResponseEntity<StandardResponse> handleNotFoundException(NotFoundException e){
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200, "Error has been occurred", e.getMessage() + "sachi")
-                , HttpStatus.CREATED
+                ,HttpStatus.CREATED
         );
     }
 }

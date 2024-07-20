@@ -11,4 +11,6 @@ public interface ItemService {
     List<ItemGetResponseDto> getItemByNameAndStatus(String itemName);
 
     List<ItemGetResponseDto> getItemByNameAndStatusByMatStruct(String itemName);
+
+    List<ItemGetResponseDto> getItemsByActiveStatus(boolean activeStatus);
 }

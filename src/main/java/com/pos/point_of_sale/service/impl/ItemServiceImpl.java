@@ -3,6 +3,7 @@ package com.pos.point_of_sale.service.impl;
 import com.pos.point_of_sale.dto.request.ItemSaveRequestDto;
 import com.pos.point_of_sale.dto.response.ItemGetResponseDto;
 import com.pos.point_of_sale.entity.Item;
+import com.pos.point_of_sale.exception.NotFoundException;
 import com.pos.point_of_sale.repository.ItemRepo;
 import com.pos.point_of_sale.service.ItemService;
 import com.pos.point_of_sale.util.mappers.ItemMapper;
@@ -30,7 +31,7 @@ public class ItemServiceImpl implements ItemService {
     public String saveItem(ItemSaveRequestDto itemSaveRequestDto) {
         /*Here we used model mapper to map the dto into entity*/
         Item item = modelMapper.map(itemSaveRequestDto, Item.class);
-        //item.setActive(true);
+        item.setActive(true);
         if (!itemRepo.existsById(item.getItemId())) {
             itemRepo.save(item);
             return item.getItemId() + " saved successfully!";
@@ -63,6 +64,18 @@ public class ItemServiceImpl implements ItemService {
             return itemGetResponseDtos;
         }else {
             throw new RuntimeException("Not found!");
+        }
+    }
+
+    @Override
+    public List<ItemGetResponseDto> getItemsByActiveStatus(boolean activeStatus) {
+        List<Item> items = itemRepo.findAllByIsActive(activeStatus);
+        if (!items.isEmpty()){
+            // dakunu peththe tika wam peththata dagannawa. a kiyanne items tika TypeToken eken hadaganna list ekata danna kiyala kiyanne
+            List<ItemGetResponseDto> itemGetResponseDtos = itemMapper.entityListToDtoList(items);
+            return itemGetResponseDtos;
+        }else {
+            throw new NotFoundException("Not found!");
         }
     }
 }
