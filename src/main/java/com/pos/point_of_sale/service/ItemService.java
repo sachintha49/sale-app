@@ -1,5 +1,6 @@
 package com.pos.point_of_sale.service;
 
+import com.pos.point_of_sale.dto.paginated.PaginatedResponseItemDto;
 import com.pos.point_of_sale.dto.request.ItemSaveRequestDto;
 import com.pos.point_of_sale.dto.response.ItemGetResponseDto;
 
@@ -13,4 +14,6 @@ public interface ItemService {
     List<ItemGetResponseDto> getItemByNameAndStatusByMatStruct(String itemName);
 
     List<ItemGetResponseDto> getItemsByActiveStatus(boolean activeStatus);
+
+    PaginatedResponseItemDto getItemByActiveStatusWithPaginated(boolean activeStatus, int page, int size);
 }

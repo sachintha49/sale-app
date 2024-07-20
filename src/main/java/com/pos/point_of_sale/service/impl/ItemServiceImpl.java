@@ -1,5 +1,6 @@
 package com.pos.point_of_sale.service.impl;
 
+import com.pos.point_of_sale.dto.paginated.PaginatedResponseItemDto;
 import com.pos.point_of_sale.dto.request.ItemSaveRequestDto;
 import com.pos.point_of_sale.dto.response.ItemGetResponseDto;
 import com.pos.point_of_sale.entity.Item;
@@ -11,6 +12,8 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -77,5 +80,19 @@ public class ItemServiceImpl implements ItemService {
         }else {
             throw new NotFoundException("Not found!");
         }
+    }
+
+    @Override
+    public PaginatedResponseItemDto getItemByActiveStatusWithPaginated(boolean activeStatus, int page, int size) {
+        // methana page eka 1 unoth size eka 5 unoth eken enne dewani records 5 adala logics ekata anuwa. and page eka set wenne 0 idan
+        Page<Item> items = itemRepo.findAllByIsActive(activeStatus, PageRequest.of(page,size));
+        if (items.getSize() < 1){
+            throw new NotFoundException("No data found!");
+        }
+        PaginatedResponseItemDto paginatedResponseItemDto = new PaginatedResponseItemDto(
+                itemMapper.listDtoToPage(items),
+                2
+        );
+        return paginatedResponseItemDto;
     }
 }

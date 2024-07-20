@@ -1,5 +1,6 @@
 package com.pos.point_of_sale.controller;
 
+import com.pos.point_of_sale.dto.paginated.PaginatedResponseItemDto;
 import com.pos.point_of_sale.dto.request.ItemSaveRequestDto;
 import com.pos.point_of_sale.dto.response.ItemGetResponseDto;
 import com.pos.point_of_sale.service.ItemService;
@@ -61,12 +62,16 @@ public class ItemController {
 
     @GetMapping(
             path = "/get-all-item-by-status",
-            params = "activeStatus"
+            params = {"activeStatus","page","size"}
     )
-    public ResponseEntity<StandardResponse> getItemsByActiveStatus(@RequestParam(value = "activeStatus") boolean activeStatus) {
-        List<ItemGetResponseDto> itemDtos = itemService.getItemsByActiveStatus(activeStatus);
+    public ResponseEntity<StandardResponse> getItemsByActiveStatus(
+            @RequestParam(value = "activeStatus") boolean activeStatus,
+            @RequestParam(value = "page") int page,
+            @RequestParam(value = "size") int size) {
+     //   List<ItemGetResponseDto> itemDtos = itemService.getItemsByActiveStatus(activeStatus,page,size);
+        PaginatedResponseItemDto paginatedResponseItemDto = itemService.getItemByActiveStatusWithPaginated(activeStatus,page,size);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(201, "Success!", itemDtos), HttpStatus.OK
+                new StandardResponse(201, "Success!", paginatedResponseItemDto), HttpStatus.OK
         );
     }
 }
