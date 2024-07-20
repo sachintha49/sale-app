@@ -86,12 +86,13 @@ public class ItemServiceImpl implements ItemService {
     public PaginatedResponseItemDto getItemByActiveStatusWithPaginated(boolean activeStatus, int page, int size) {
         // methana page eka 1 unoth size eka 5 unoth eken enne dewani records 5 adala logics ekata anuwa. and page eka set wenne 0 idan
         Page<Item> items = itemRepo.findAllByIsActive(activeStatus, PageRequest.of(page,size));
+        int count = itemRepo.countByIsActive(activeStatus);
         if (items.getSize() < 1){
             throw new NotFoundException("No data found!");
         }
         PaginatedResponseItemDto paginatedResponseItemDto = new PaginatedResponseItemDto(
                 itemMapper.listDtoToPage(items),
-                2
+                count
         );
         return paginatedResponseItemDto;
     }
