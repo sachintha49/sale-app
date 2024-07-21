@@ -3,10 +3,7 @@ package com.pos.point_of_sale.entity;
 import com.pos.point_of_sale.entity.enums.MeasuringUnitType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
 import java.util.Set;
@@ -18,6 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "orders")
 @Schema(description = "Orders entity")
+@Builder
 public class Order {
     @Id
     @Column(name = "order_id", length = 45)

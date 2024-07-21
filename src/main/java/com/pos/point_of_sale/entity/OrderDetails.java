@@ -2,10 +2,7 @@ package com.pos.point_of_sale.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,6 +11,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "order_details")
 @Schema(description = "Order Details entity")
+@Builder
 public class OrderDetails {
 
     @Id
