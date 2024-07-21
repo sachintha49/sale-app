@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Set;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -39,6 +41,7 @@ public class Item {
     @Schema(description = "Supplier Price")
     private double supplierPrice;
 
+    //this means unit price
     @Column(name = "selling_price", length = 100, nullable = false)
     @Schema(description = "Selling Price")
     private double sellingPrice;
@@ -46,4 +49,9 @@ public class Item {
     @Column(name = "active_state", columnDefinition = "TINYINT default 1")
     @Schema(description = "Customer availablitiy", example = "true")
     private boolean isActive;
+
+    //meka mehema dammama table eke mokuth hedenne nehe just reference eka witharai hedenne.
+    // eka item ekak order details keepayaka thiyenna puluwan but orderDetail ekaka thiyenen eka item ekai.
+    @OneToMany(mappedBy = "items")
+    private Set<OrderDetails> orderDetails;
 }

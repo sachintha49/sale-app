@@ -5,6 +5,7 @@ import com.pos.point_of_sale.dto.request.ItemSaveRequestDto;
 import com.pos.point_of_sale.dto.response.ItemGetResponseDto;
 import com.pos.point_of_sale.service.ItemService;
 import com.pos.point_of_sale.util.StandardResponse;
+import jakarta.validation.constraints.Max;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,17 +62,18 @@ public class ItemController {
     }
 
     @GetMapping(
-            path = "/get-all-item-by-status",
+            path = "/get-all-items-paginated",
             params = {"activeStatus","page","size"}
     )
     public ResponseEntity<StandardResponse> getItemsByActiveStatus(
             @RequestParam(value = "activeStatus") boolean activeStatus,
             @RequestParam(value = "page") int page,
-            @RequestParam(value = "size") int size) {
+            @RequestParam(value = "size") @Max(50) int size) {
      //   List<ItemGetResponseDto> itemDtos = itemService.getItemsByActiveStatus(activeStatus,page,size);
         PaginatedResponseItemDto paginatedResponseItemDto = itemService.getItemByActiveStatusWithPaginated(activeStatus,page,size);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(201, "Success!", paginatedResponseItemDto), HttpStatus.OK
         );
     }
+
 }

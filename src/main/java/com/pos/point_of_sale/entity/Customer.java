@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -42,4 +44,7 @@ public class Customer {
     @Column(name = "active_state", columnDefinition = "TINYINT default 1")
     @Schema(description = "Customer availablitiy", example = "true")
     private boolean isActive;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Order> orders;
 }
