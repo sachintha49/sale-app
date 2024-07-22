@@ -1,6 +1,9 @@
 package com.pos.point_of_sale.service.impl;
 
+import com.pos.point_of_sale.dto.paginated.PaginatedResponseOrderDetails;
+import com.pos.point_of_sale.dto.queryinterface.OrderDetailInterface;
 import com.pos.point_of_sale.dto.request.RequestOrderSaveDto;
+import com.pos.point_of_sale.dto.response.ResponseOrderDetailsDto;
 import com.pos.point_of_sale.entity.Customer;
 import com.pos.point_of_sale.entity.Order;
 import com.pos.point_of_sale.entity.OrderDetails;
@@ -14,9 +17,11 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -66,5 +71,28 @@ public class OrderServiceImpl implements OrderService {
             return "Saved";
         }
        return null;
+    }
+
+    @Override
+    public PaginatedResponseOrderDetails getAllOrderDetails(boolean status, int page, int size) {
+        List<OrderDetailInterface> orderDetailsDtos = orderRepo.getAllOrderDetails(status, PageRequest.of(page,size));
+
+        List<ResponseOrderDetailsDto> detailsDtos = new ArrayList<>();
+
+        for(OrderDetailInterface i : orderDetailsDtos){
+            ResponseOrderDetailsDto orderDetail = new ResponseOrderDetailsDto(
+                    i.getCustomerName(),
+                    i.getCustomerAddress(),
+                    i.getContactNumber(),
+                    i.getDate(),
+                    i.getTotal()
+            );
+            detailsDtos.add(orderDetail);
+        }
+        PaginatedResponseOrderDetails paginatedResponseOrderDetails = new PaginatedResponseOrderDetails(
+                detailsDtos,
+                orderRepo.countAllOrderDetails(status)
+        );
+        return paginatedResponseOrderDetails;
     }
 }
