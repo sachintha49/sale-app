@@ -37,4 +37,7 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private Set<OrderDetails> orderDetails;
 
+    @Column(name = "active_state", columnDefinition = "TINYINT default 1")
+    private boolean isActive;
+
 }

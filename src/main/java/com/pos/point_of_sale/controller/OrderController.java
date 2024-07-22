@@ -26,4 +26,14 @@ String id = orderService.addOrder(itemSaveRequestDto);
                 new StandardResponse(201, id, 3), HttpStatus.CREATED
         );
     }
+
+    @GetMapping(
+            params = {"stateType","page","size"},
+            path = {"/get-order-details"}
+    )
+    public ResponseEntity<StandardResponse> getAllOrderDetails(
+            @RequestParam(value = )
+    ){
+        return null;
+    }
 }
